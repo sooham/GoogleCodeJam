@@ -14,10 +14,10 @@ def lineate(file_name):
         return lines
 
 
-def write_results(file_name, result_tuple):
+def write_results(file_name, result_tuples):
     """ (filename, list of (test case, solution)) -> NoneType
 
-    result_tuple is a list data structure that contains tuples of every
+    result_tuples is a list data structure that contains tuples of every
     test case and its solution.
 
     i.e [(1, 2), (2, 5), (3, 100)]
@@ -26,8 +26,8 @@ def write_results(file_name, result_tuple):
     result_tuple in correct output format.
     """
 
-    with open(file_name, 'a') as fout:
-        for case_num, result in result_tuple:
+    with open(file_name, 'w') as fout:
+        for case_num, result in result_tuples:
             fout.write('Case #{}: {}\n'.format(case_num, result))
 
 """
@@ -69,13 +69,11 @@ def solve_test_case(s):
     shyness_lvl = len(s) - 1
     potential_standees = sum((int(digit) for digit in s))
     # Assume even the most shy people applause (standing ovation)
-    while shyness_lvl > 0:
+    while shyness_lvl >= 0:
         digit = int(s[shyness_lvl])
-        if digit != 0:
+        if digit != 0:      # will work correctly for len 1 strings
             potential_standees -= digit
-            if potential_standees < shyness_lvl:
-                # not enough people for shyness_lvl people to applause
-                possible_solutions.append(shyness_lvl - potential_standees)
+            possible_solutions.append(shyness_lvl - potential_standees)
         shyness_lvl -= 1
 
     return max(possible_solutions)
@@ -87,4 +85,21 @@ def main(input_file, output_file):
     Processes the file input_file and writes the solution to
     output_file.
     """
-    pass
+    test_cases = lineate(input_file)
+    print(test_cases)
+    num_test_cases = int(test_cases[0])
+    print(num_test_cases)
+    result_tuples = []
+
+    i = 1
+
+    for i in range(1, num_test_cases + 1):
+        print('    ', i)
+        _, test_string = test_cases[i].split()
+        print(_, test_string)
+        result_tuples.append((i, solve_test_case(test_string)))
+
+    write_results(output_file, result_tuples)
+
+if __name__ == '__main__':
+    main('example.txt', 'example_result.txt')
