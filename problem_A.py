@@ -86,20 +86,16 @@ def main(input_file, output_file):
     output_file.
     """
     test_cases = lineate(input_file)
-    print(test_cases)
     num_test_cases = int(test_cases[0])
-    print(num_test_cases)
     result_tuples = []
 
     i = 1
 
     for i in range(1, num_test_cases + 1):
-        print('    ', i)
         _, test_string = test_cases[i].split()
-        print(_, test_string)
         result_tuples.append((i, solve_test_case(test_string)))
 
     write_results(output_file, result_tuples)
 
 if __name__ == '__main__':
-    main('example.txt', 'example_result.txt')
+    main('A-small-attempt0.in.txt', 'results_A_small.txt')
