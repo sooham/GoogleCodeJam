@@ -15,20 +15,19 @@ def lineate(file_name):
 
 
 def write_results(file_name, result_tuples):
-    """ (filename, list of (test case, solution)) -> NoneType
+    """ (filename, tuple of solution) -> NoneType
 
-    result_tuples is a list data structure that contains tuples of every
-    test case and its solution.
+    result_tuples contains tuples of every test case solution.
 
-    i.e [(1, 2), (2, 5), (3, 100)]
+    i.e [2, 5, 100]
 
     Creates a new file file_name and writes the all results from
     result_tuple in correct output format.
     """
 
     with open(file_name, 'w') as fout:
-        for case_num, result in result_tuples:
-            fout.write('Case #{}: {}\n'.format(case_num, result))
+        for i in range(len(result_tuples)):
+            fout.write('Case #{}: {}\n'.format(i + 1, result_tuples))
 
 """
     Objective: Return the minimum number of friends needed to ensue
@@ -86,16 +85,13 @@ def main(input_file, output_file):
     output_file.
     """
     test_cases = lineate(input_file)
-    num_test_cases = int(test_cases[0])
     result_tuples = []
 
-    i = 1
-
-    for i in range(1, num_test_cases + 1):
-        _, test_string = test_cases[i].split()
-        result_tuples.append((i, solve_test_case(test_string)))
+    for case in test_cases[1:]:
+        _, test_string = case.split()
+        result_tuples.append(solve_test_case(test_string))
 
     write_results(output_file, result_tuples)
 
 if __name__ == '__main__':
-    main('A-small-attempt0.in.txt', 'results_A_small.txt')
+    main('A-large.in.txt', 'results_A_large.txt')
