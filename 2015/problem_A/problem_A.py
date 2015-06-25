@@ -14,20 +14,20 @@ def lineate(file_name):
         return lines
 
 
-def write_results(file_name, result_tuples):
-    """ (filename, tuple of solution) -> NoneType
+def write_results(file_name, results):
+    """ (filename, list of solution) -> NoneType
 
-    result_tuples contains tuples of every test case solution.
+    results contains every test case solution.
 
     i.e [2, 5, 100]
 
     Creates a new file file_name and writes the all results from
-    result_tuple in correct output format.
+    results in correct output format.
     """
 
     with open(file_name, 'w') as fout:
-        for i in range(len(result_tuples)):
-            fout.write('Case #{}: {}\n'.format(i + 1, result_tuples))
+        for i in range(len(results)):
+            fout.write('Case #{}: {}\n'.format(i + 1, results[i]))
 
 """
     Objective: Return the minimum number of friends needed to ensue
